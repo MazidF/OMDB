@@ -4,5 +4,4 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class LoggingInterceptor
-
+annotation class Remote

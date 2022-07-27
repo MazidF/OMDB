@@ -1,14 +1,15 @@
 package com.example.omdb.di
 
-import com.example.learning.di.qualifier.AuthorizationInterceptor
-import com.example.learning.di.qualifier.LoggingInterceptor
-import com.example.omdb.data.model.MovieDetailWithGenres
+import com.example.omdb.data.IDataSource
+import com.example.omdb.di.qualifier.AuthorizationInterceptor
+import com.example.omdb.di.qualifier.LoggingInterceptor
+import com.example.omdb.data.model.relation.MovieDetailWithGenres
 import com.example.omdb.data.model.entity.Movie
-import com.example.omdb.data.model.entity.MovieDetail
 import com.example.omdb.data.remote.api.MovieApi
+import com.example.omdb.data.remote.RemoteDataSource
 import com.example.omdb.data.remote.api.deserializer.MovieDeserializer
-import com.example.omdb.data.remote.api.deserializer.MovieDetailDeserializer
 import com.example.omdb.data.remote.api.deserializer.MovieDetailWithGenresDeserializer
+import com.example.omdb.di.qualifier.Remote
 import com.example.omdb.utils.API_KEY
 import com.example.omdb.utils.BASE_URL
 import com.google.gson.*
@@ -96,5 +97,16 @@ class NetworkModule {
         retrofit: Retrofit,
     ) : MovieApi {
         return retrofit.create(MovieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Remote
+    fun provideRemoteDataSource(
+        movieApi: MovieApi,
+    ) : IDataSource {
+        return RemoteDataSource(
+            movieApi = movieApi,
+        )
     }
 }

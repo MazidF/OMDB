@@ -1,7 +1,7 @@
 package com.example.omdb.data.remote.api.deserializer
 
 import com.example.omdb.data.model.entity.Genre
-import com.example.omdb.data.model.MovieDetailWithGenres
+import com.example.omdb.data.model.relation.MovieDetailWithGenres
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

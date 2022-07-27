@@ -1,7 +1,7 @@
 package com.example.omdb.di
 
-import com.example.onlineshop.di.qualifier.DispatcherIO
-import com.example.onlineshop.di.qualifier.DispatcherMain
+import com.example.omdb.di.qualifier.DispatcherIO
+import com.example.omdb.di.qualifier.DispatcherMain
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

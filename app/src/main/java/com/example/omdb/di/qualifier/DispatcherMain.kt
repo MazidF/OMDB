@@ -1,4 +1,4 @@
-package com.example.onlineshop.di.qualifier
+package com.example.omdb.di.qualifier
 
 import javax.inject.Qualifier
 
