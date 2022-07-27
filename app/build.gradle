@@ -1,0 +1,151 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+
+    //Hilt
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+
+    //Use kotlinx.parcelize package
+    id 'kotlin-parcelize'
+
+    //Navigation
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk 32
+    buildToolsVersion '30.0.3'
+
+    defaultConfig {
+        applicationId "com.example.omdb"
+        minSdkVersion 23
+        targetSdkVersion 32
+        versionCode 8
+        versionName "1.0.8"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+
+        // this snippet code for using 'flatMapLatest' that is experimental flow api.
+        freeCompilerArgs += [
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlinx.coroutines.ObsoleteCoroutinesApi"]
+    }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+    hilt {
+        enableAggregatingTask = true
+    }
+
+}
+
+dependencies {
+    // Kotlin + Core + AppCompat
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+
+    // Material + ConstraintLayout
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //Fragment Activity
+    implementation 'androidx.fragment:fragment-ktx:1.5.0'
+    implementation "androidx.activity:activity-ktx:1.5.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
+    //Coroutine
+    def coroutine_version = '1.6.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+
+    //Navigation
+    def nav_version = '2.5.0' // '2.4.2'
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
+
+    // //ViewModel + LiveData + Lifecycle
+    def lifecycle_version = '2.5.0' //'2.4.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //Hilt
+    def hilt_version = '2.41'
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    //Room
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // HttpLoggingInterceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:3.12.13"
+
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Glide
+    def glide_version = '4.13.1'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:5.0.3'
+
+    // MotionLayout
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Viewpager 2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // Selection Tracker
+    def selection_version = "1.1.0"
+    implementation "androidx.recyclerview:recyclerview-selection:$selection_version"
+
+    // paging
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // Work Manager
+    def work_version = "2.7.1"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    // Material Component
+    implementation 'com.google.android.material:material:1.6.1'
+}
+kapt {
+    correctErrorTypes true
+}
