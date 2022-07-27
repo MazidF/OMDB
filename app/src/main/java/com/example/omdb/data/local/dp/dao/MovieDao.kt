@@ -4,7 +4,11 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.example.omdb.data.local.dp.IDao
 import com.example.omdb.data.model.entity.Movie
+import com.example.omdb.data.model.entity.MovieDetail
 import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface MovieDetailDao : IDao<MovieDetail>
 
 @Dao
 interface MovieDao : IDao<Movie> {
