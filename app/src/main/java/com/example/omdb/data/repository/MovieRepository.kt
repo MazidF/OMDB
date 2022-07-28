@@ -1,5 +1,6 @@
 package com.example.omdb.data.repository
 
+import androidx.lifecycle.LiveData
 import com.example.omdb.data.IDataSaver
 import com.example.omdb.data.IDataSource
 import com.example.omdb.data.model.entity.Movie
@@ -22,24 +23,18 @@ class MovieRepository(
         CoroutineScope(dispatcher + SupervisorJob())
     }
 
-    fun search(isOnline: Boolean, title: String): ItemPagingSource<Movie> {
-        return object : ItemPagingSource<Movie>() {
-            override suspend fun loadData(page: Int, perPage: Int): Result<List<Movie>> {
-                val remoteLoad = suspend {
-                    remote.search(title, page, perPage)
-                }
-                val localLoad = suspend {
-                    local.search(title, page, perPage)
-                }
-                val result = loadData(isOnline, remoteLoad, localLoad)
-
-                if (isOnline and (result is Result.Success)) {
-                    saver.saveMovies((result as Result.Success).data())
-                }
-
-                return result
-            }
+    suspend fun search(isOnline: Boolean, title: String, page: Int, perPage: Int): Result<List<Movie>> {
+        val result = if (isOnline) {
+            remote.search(title, page, perPage)
+        } else {
+            local.search(title, page, perPage)
         }
+
+        if (isOnline and (result is Result.Success)) {
+            saver.saveMovies((result as Result.Success).data())
+        }
+
+        return result
     }
 
     fun getDetail(isOnline: Boolean, movieId: String): Flow<Result<MovieDetailWithGenres>> {

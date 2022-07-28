@@ -1,8 +1,11 @@
 package com.example.omdb.utils
 
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.Window
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -110,12 +113,21 @@ fun AlertDialog.hideBackground() = apply {
     window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 }
 
+fun getAttributeResourceId(context: Context, attribute: Int): Int {
+    val value = TypedValue()
+    context.theme.resolveAttribute(attribute, value, true)
+    return value.resourceId
+}
+
 fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
+
+
     val request = Glide.with(this)
         .load(input)
+        .centerCrop()
         .placeholder(R.drawable.loading_animation)
         .fitCenter()
-        .error(R.drawable.ic_movie)
+        .error(getAttributeResourceId(context, R.attr.errorIconDrawable))
         .diskCacheStrategy(DiskCacheStrategy.ALL) // caching for offline mode
 
     cb?.let {
@@ -144,4 +156,8 @@ fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
     }
 
     request.into(this)
+}
+
+fun Context.isLandscape(): Boolean {
+    return resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 }

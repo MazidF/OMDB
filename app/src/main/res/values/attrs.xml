@@ -5,4 +5,5 @@
         <attr name="itemsTitle" format="reference" />
         <attr name="itemsIcon" format="reference" />
     </declare-styleable>
+    <attr name="errorIconDrawable" format="reference" />
 </resources>

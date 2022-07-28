@@ -7,4 +7,6 @@
     <string name="continue_offline">Continue Offline</string>
     <string name="cellular">Cellular</string>
     <string name="wifi">WIFI</string>
+    <string name="retry">Retry</string>
+    <string name="failed_to_load_more_item_from_server">Failed to load more item from server!!</string>
 </resources>

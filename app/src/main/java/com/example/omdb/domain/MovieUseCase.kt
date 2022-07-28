@@ -1,14 +1,13 @@
 package com.example.omdb.domain
 
-import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.relation.MovieDetailWithGenres
+import com.example.omdb.data.paging.ItemPagingSource
 import com.example.omdb.data.repository.MovieRepository
 import com.example.omdb.data.result.Result
 import com.example.omdb.utils.INITIAL_LOAD_SIZE
-import com.example.omdb.utils.MAX_SIZE
 import com.example.omdb.utils.PAGE_SIZE
 import com.example.omdb.utils.PREFETCH_DISTANCE
 import com.example.omdb.utils.helper.ConnectionHelper
@@ -54,9 +53,9 @@ class MovieUseCase(
         return repository.getMovieById(isNetworkAvailable(), movieId)
     }
 
-    fun search(title: String): Flow<PagingData<Movie>> {
-        return Pager(config = pagingConfig) {
-            repository.search(isNetworkAvailable(), title)
+    fun search(title: String, startPageIndex: Int): Flow<PagingData<Movie>> {
+        return ItemPagingSource.pager(pagingConfig, startPageIndex) { page, pageSize ->
+            repository.search(isNetworkAvailable(), title, page, pageSize)
         }.flow.flowOn(dispatcher)
     }
 }
