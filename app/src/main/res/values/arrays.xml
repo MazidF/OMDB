@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="setting_item_titles">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <integer-array name="setting_item_icons">
+        <item>@drawable/light_phone</item>
+        <item>@drawable/dark_phone</item>
+    </integer-array>
+</resources>
