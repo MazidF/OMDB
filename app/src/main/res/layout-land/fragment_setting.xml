@@ -3,32 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="@string/appearance"
         android:textColor="@color/gray"
         android:textSize="20sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#272727"
+    <FrameLayout
+        android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <com.example.omdb.widgit.selectable.SelectableViewGroup
+            app:divider="@drawable/gap"
             android:id="@+id/theme_option"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:itemsIcon="@array/setting_item_icons"
             app:itemsTitle="@array/setting_item_titles" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -36,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Automatic"
-                android:textColor="@color/white"
+                android:textColor="@color/simple_text_color"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -44,11 +46,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                app:thumbTint="@color/gray_pink"
-                app:trackTint="@color/dark_gray_pink" />
+                app:thumbTint="@color/gray_blue"
+                app:trackTint="@color/dark_gray_blue" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

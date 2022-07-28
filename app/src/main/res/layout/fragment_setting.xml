@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Automatic"
-            android:textColor="@color/black"
+            android:textColor="@color/simple_text_color"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.SwitchCompat

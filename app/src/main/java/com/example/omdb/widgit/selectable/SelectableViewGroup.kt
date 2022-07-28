@@ -1,10 +1,12 @@
 package com.example.omdb.widgit.selectable
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.example.omdb.R
@@ -16,6 +18,7 @@ class SelectableViewGroup(
     context: Context,
     attrs: AttributeSet,
 ) : LinearLayout(context, attrs) {
+    private var divider: Drawable? = null
     private var selectedIndex: Int = -1
     private var icons: Array<Int>? = null
     private lateinit var reset: () -> Unit
@@ -30,6 +33,8 @@ class SelectableViewGroup(
         val attribute = context.obtainStyledAttributes(attrs, R.styleable.SelectableViewGroup)
 
         try {
+            divider = attribute.getDrawable(R.styleable.SelectableViewGroup_divider)
+
             selectedIndex = attribute.getInt(R.styleable.SelectableViewGroup_selectedIndex, -1)
 
             val titlesId = attribute.getResourceId(R.styleable.SelectableViewGroup_itemsTitle, 0)
@@ -58,8 +63,16 @@ class SelectableViewGroup(
     }
 
     private fun setupChildren() {
-        items = List(titles.size) {
-            createChild(titles[it], icons?.get(it)).also { view ->
+        if (titles.isEmpty()) return
+
+
+        val firstItem = createChild(titles[0], icons?.get(0)).also { view ->
+            addView(view.getView())
+        }
+        items = listOf(firstItem) + List(titles.size - 1) {
+            val index = it + 1
+            addDivider()
+            createChild(titles[index], icons?.get(index)).also { view ->
                 addView(view.getView())
             }
         }
@@ -68,10 +81,21 @@ class SelectableViewGroup(
         }
     }
 
+    private fun addDivider() {
+        divider?.let {
+            addView(ImageView(context).apply {
+                setImageDrawable(divider)
+            })
+        }
+    }
+
     fun select(index: Int) {
         reset()
         for (i in items.indices) {
             items[i].select(i == index)
+        }
+        if (index != -1) {
+            items[index].getView().callOnClick()
         }
     }
 

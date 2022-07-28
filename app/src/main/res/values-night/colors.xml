@@ -2,4 +2,5 @@
 <resources>
     <color name="simple_text_color">@color/white</color>
     <color name="color_of_theme">@color/pink</color>
+    <color name="light_color_of_theme">@color/light_pink</color>
 </resources>

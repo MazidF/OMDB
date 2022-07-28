@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.omdb.R
 import com.example.omdb.data.local.datastore.setting.Theme
 import com.example.omdb.databinding.FragmentSettingBinding

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SelectableViewGroup">
+        <attr name="divider" format="reference" />
         <attr name="selectedIndex" format="integer" />
         <attr name="itemsTitle" format="reference" />
         <attr name="itemsIcon" format="reference" />

@@ -15,4 +15,5 @@
     <color name="light_pink">#F17474</color>
     <color name="simple_text_color">@color/black</color>
     <color name="color_of_theme">@color/blue</color>
+    <color name="light_color_of_theme">@color/light_blue</color>
 </resources>

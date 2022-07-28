@@ -8,11 +8,16 @@
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/loading_img.xml" value="0.2535" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_background.xml" value="0.1" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_drawable.xml" value="0.1" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/white_gap.xml" value="0.2495" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout-land/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout-night/fragment_setting.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/connection_dialog.xml" value="0.33" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_movie_detail.xml" value="0.12511584800741427" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_refreshable.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_setting.xml" value="0.1388888888888889" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_with_lottie.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/load_state_item.xml" value="0.22" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/small_movie_item.xml" value="0.75" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/menu/bottom_menu.xml" value="0.1" />

@@ -17,4 +17,16 @@
         android:label="FragmentSetting"
         tools:layout="@layout/fragment_setting" />
 
+    <fragment
+        android:id="@+id/fragmentMovieDetail"
+        android:name="com.example.omdb.ui.fragment.detail.FragmentMovieDetail"
+        android:label="FragmentMovieDetail"
+        tools:layout="@layout/fragment_movie_detail">
+
+        <argument
+            android:name="movie"
+            app:argType="com.example.omdb.data.model.entity.Movie" />
+
+    </fragment>
+
 </navigation>
