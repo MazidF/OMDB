@@ -20,6 +20,10 @@ class RemoteDataSource(
     }
 
     override suspend fun search(movieTitle: String, page: Int, pageSize: Int): Result<List<Movie>> {
-        return movieApi.searchByTitle(movieTitle, page).asResult()
+        val page1 = page
+        val pageSize = pageSize
+        return movieApi.searchByTitle(movieTitle, page).asResult().map {
+            it.toList()
+        }
     }
 }

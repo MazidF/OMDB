@@ -1,6 +1,5 @@
 package com.example.omdb.data
 
-import androidx.paging.*
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.relation.MovieDetailWithGenres
 import com.example.omdb.data.result.Result

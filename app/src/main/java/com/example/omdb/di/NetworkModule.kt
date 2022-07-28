@@ -9,10 +9,12 @@ import com.example.omdb.data.remote.api.MovieApi
 import com.example.omdb.data.remote.RemoteDataSource
 import com.example.omdb.data.remote.api.deserializer.MovieDeserializer
 import com.example.omdb.data.remote.api.deserializer.MovieDetailWithGenresDeserializer
+import com.example.omdb.data.remote.api.deserializer.MovieResponseDeserializer
 import com.example.omdb.di.qualifier.Remote
 import com.example.omdb.utils.API_KEY
 import com.example.omdb.utils.BASE_URL
 import com.google.gson.*
+import com.google.gson.reflect.TypeToken
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +24,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.ArrayList
 import javax.inject.Singleton
 
 @Module
@@ -32,7 +35,9 @@ class NetworkModule {
     @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
-            .registerTypeAdapter(Movie::class.java, MovieDeserializer)
+                // we want to get a list of movie but it returns an object (not array)
+                // so we can create a class with list of movies for do something like this
+            .registerTypeAdapter(object : TypeToken<ArrayList<Movie>>() {}.type, MovieResponseDeserializer)
             .registerTypeAdapter(MovieDetailWithGenres::class.java, MovieDetailWithGenresDeserializer)
             .create()
     }
@@ -55,11 +60,11 @@ class NetworkModule {
             val oldUrl = oldRequest.url()
 
             val newUrl = oldUrl.newBuilder()
-                // .addQueryParameter()   // add query parameter if needed
+                .addQueryParameter("apikey", API_KEY)
                 .build()
             val newRequest = oldRequest.newBuilder()
                 .url(newUrl)
-                .addHeader("apikey", API_KEY)
+                // .addHeader()   // add header if needed
                 .build()
 
             chain.proceed(newRequest)

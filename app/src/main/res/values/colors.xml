@@ -13,4 +13,6 @@
     <color name="light_blue">#72B3E6</color>
     <color name="pink">#FF5050</color>
     <color name="light_pink">#F17474</color>
+    <color name="simple_text_color">@color/black</color>
+    <color name="color_of_theme">@color/blue</color>
 </resources>

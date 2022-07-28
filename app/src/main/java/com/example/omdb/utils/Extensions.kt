@@ -1,10 +1,24 @@
 package com.example.omdb.utils
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.view.Window
+import android.widget.ImageView
 import android.widget.RadioButton
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.example.omdb.R
 import com.example.omdb.data.result.Result
 import com.example.omdb.data.result.error.NetworkError
 import com.example.omdb.widgit.selectable.SelectableView
@@ -37,6 +51,12 @@ fun <T : Any> safeApiCall(
     }.catch { cause ->
         emit(Result.fail(cause))
     }.flowOn(dispatcher)
+}
+
+fun AppCompatActivity.launch(block: suspend CoroutineScope.() -> Unit): Job {
+    return lifecycleScope.launch {
+        block()
+    }
 }
 
 fun Fragment.launch(
@@ -83,4 +103,45 @@ fun List<SelectableView>.setupSelection(defaultIndex: Int? = null, cb: (Int) -> 
     }
 
     return ::reset
+}
+
+fun AlertDialog.hideBackground() = apply {
+    requestWindowFeature(Window.FEATURE_NO_TITLE)
+    window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+}
+
+fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
+    val request = Glide.with(this)
+        .load(input)
+        .placeholder(R.drawable.loading_animation)
+        .fitCenter()
+        .error(R.drawable.ic_movie)
+        .diskCacheStrategy(DiskCacheStrategy.ALL) // caching for offline mode
+
+    cb?.let {
+        request.addListener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                cb(false)
+                return false // false --> glide continue it's work
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                cb(true)
+                return false
+            }
+        })
+    }
+
+    request.into(this)
 }

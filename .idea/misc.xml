@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-mdpi/loading_img.xml" value="0.165" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/loading_img.xml" value="0.2535" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_background.xml" value="0.1" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_drawable.xml" value="0.1" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout-night/fragment_setting.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/connection_dialog.xml" value="0.33" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_setting.xml" value="0.1388888888888889" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/small_movie_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>

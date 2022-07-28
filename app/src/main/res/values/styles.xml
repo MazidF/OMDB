@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ConnectionDialogButton">
+        <item name="textAllCaps">false</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/color_of_theme</item>
+    </style>
+
+    <style name="Clickable">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+</resources>

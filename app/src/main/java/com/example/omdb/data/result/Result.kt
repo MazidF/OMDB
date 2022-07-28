@@ -4,27 +4,33 @@ import com.example.omdb.data.result.error.Error
 import com.example.omdb.data.result.error.SimpleError
 
 sealed class Result<T>(
-    private val data: T? = null,
-    private val error: Error? = null,
+    protected val data: T? = null,
+    protected val error: Error? = null,
 ) {
 
     class Loading<T> : Result<T>()
 
     class Fail<T>(error: Error) : Result<T>(error = error) {
-        val error: Error get() = super.error!!
+
+        fun error(): Error {
+            return super.error!!
+        }
     }
 
     class Success<T>(
         data: T,
     ) : Result<T>(data = data) {
-        val data: T get() = super.data!!
+
+        fun data(): T {
+            return super.data!!
+        }
     }
 
     fun <R> map(transaction: (T) -> R): Result<R> {
         return when (this) {
-            is Fail -> fail(error)
+            is Fail -> fail(error())
             is Loading -> loading()
-            is Success -> success(transaction(data))
+            is Success -> success(transaction(data()))
         }
     }
 

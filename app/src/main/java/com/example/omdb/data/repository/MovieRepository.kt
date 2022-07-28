@@ -25,12 +25,16 @@ class MovieRepository(
     fun search(isOnline: Boolean, title: String): ItemPagingSource<Movie> {
         return object : ItemPagingSource<Movie>() {
             override suspend fun loadData(page: Int, perPage: Int): Result<List<Movie>> {
-                val remoteLoad = suspend { remote.search(title, page, perPage) }
-                val localLoad = suspend { local.search(title, page, perPage) }
+                val remoteLoad = suspend {
+                    remote.search(title, page, perPage)
+                }
+                val localLoad = suspend {
+                    local.search(title, page, perPage)
+                }
                 val result = loadData(isOnline, remoteLoad, localLoad)
 
                 if (isOnline and (result is Result.Success)) {
-                    saver.saveMovies((result as Result.Success).data)
+                    saver.saveMovies((result as Result.Success).data())
                 }
 
                 return result
@@ -41,7 +45,9 @@ class MovieRepository(
     fun getDetail(isOnline: Boolean, movieId: String): Flow<Result<MovieDetailWithGenres>> {
         return loadAndStore(
             isOnline = isOnline,
-            remoteLoad = { remote.getDetail(movieId) },
+            remoteLoad = {
+                remote.getDetail(movieId)
+            },
             localLoad = { local.getDetail(movieId) },
             saver = { saver.saveDetail(it) },
         )
@@ -50,7 +56,9 @@ class MovieRepository(
     fun getMovieById(isOnline: Boolean, movieId: String): Flow<Result<Movie>> {
         return loadAndStore(
             isOnline = isOnline,
-            remoteLoad = { remote.getMovieById(movieId) },
+            remoteLoad = {
+                remote.getMovieById(movieId)
+            },
             localLoad = { local.getMovieById(movieId) },
             saver = { saver.saveMovieById(it) },
         )
@@ -74,7 +82,7 @@ class MovieRepository(
         saver: suspend (T) -> Unit,
     ) {
         if (isOnline and (result is Result.Success)) {
-            val data = (result as Result.Success).data
+            val data = (result as Result.Success).data()
             saver(data)
         }
     }

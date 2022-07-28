@@ -6,8 +6,15 @@
     app:startDestination="@id/fragmentSetting">
 
     <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.omdb.ui.fragment.home.FragmentHome"
+        android:label="FragmentHome"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
         android:id="@+id/fragmentSetting"
         android:name="com.example.omdb.ui.fragment.setting.FragmentSetting"
         android:label="FragmentSetting"
         tools:layout="@layout/fragment_setting" />
+
 </navigation>

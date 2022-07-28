@@ -6,20 +6,18 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-object MovieDeserializer : JsonDeserializer<Movie> {
+object MovieResponseDeserializer : JsonDeserializer<List<Movie>> {
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): Movie {
+    ): List<Movie> {
         with(json.asJsonObject) {
-            return Movie(
-                id = this["imdbID"].asString,
-                title = this["Title"].asString,
-                poster = this["Poster"].asString,
-            )
+            val array = this["Search"].asJsonArray
+            return List(array.size()) {
+                MovieDeserializer.deserialize(array[it], typeOfT, context)
+            }
         }
     }
 
 }
-

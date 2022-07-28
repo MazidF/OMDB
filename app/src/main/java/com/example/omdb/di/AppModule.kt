@@ -6,6 +6,8 @@ import com.example.omdb.data.repository.MovieRepository
 import com.example.omdb.di.qualifier.DispatcherIO
 import com.example.omdb.di.qualifier.Local
 import com.example.omdb.di.qualifier.Remote
+import com.example.omdb.domain.MovieUseCase
+import com.example.omdb.utils.helper.ConnectionHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +31,20 @@ class AppModule {
             local = local,
             remote = remote,
             saver = saver,
+            dispatcher = dispatcher,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieUseCase(
+        repository: MovieRepository,
+        connectionHelper: ConnectionHelper,
+        @DispatcherIO dispatcher: CoroutineDispatcher,
+    ): MovieUseCase {
+        return MovieUseCase(
+            repository = repository,
+            connectionHelper = connectionHelper,
             dispatcher = dispatcher,
         )
     }

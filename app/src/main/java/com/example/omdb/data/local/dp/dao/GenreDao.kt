@@ -10,5 +10,5 @@ import com.example.omdb.data.model.entity.Genre
 interface GenreDao : IDao<Genre> {
 
     @Insert(onConflict = IGNORE)
-    override fun insert(vararg items: Genre): List<Long>
+    override suspend fun insert(vararg items: Genre): List<Long>
 }

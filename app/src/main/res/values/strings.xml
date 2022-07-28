@@ -3,4 +3,8 @@
     <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="appearance">Appearance</string>
+    <string name="connection_message">You are not connected to the Internet.</string>
+    <string name="continue_offline">Continue Offline</string>
+    <string name="cellular">Cellular</string>
+    <string name="wifi">WIFI</string>
 </resources>
