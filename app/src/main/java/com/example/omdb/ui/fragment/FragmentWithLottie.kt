@@ -29,17 +29,22 @@ abstract class FragmentWithLottie(
 
     protected abstract fun onViewCreated(view: View)
 
-    protected fun startAnimation(resourceId: Int? = null) {
+    private fun startAnimation(resourceId: Int) {
         binding.lottie.apply {
             pauseAnimation()
             cancelAnimation()
-            setAnimation(resourceId ?: getAttributeResourceId(context, R.attr.loading_animation))
+            setAnimation(resourceId)
             play()
         }
     }
 
+    protected fun startAnimation() = with(binding) {
+        startAnimation(getAttributeResourceId(lottie.context, R.attr.loading_animation))
+        hideRetry()
+    }
+
     protected fun stopAnimation() = with(binding) {
-        retry.isVisible = false
+        hideRetry()
         lottie.apply {
             pauseAnimation()
             animate().alpha(0f).withEndAction {
@@ -47,6 +52,10 @@ abstract class FragmentWithLottie(
                 alpha = 1f
             }.duration = 300
         }
+    }
+
+    private fun hideRetry() {
+       binding.retry.isVisible = false
     }
 
     protected fun showError(onRetry: () -> Unit) = with(binding) {
@@ -63,6 +72,11 @@ abstract class FragmentWithLottie(
     private fun play() = binding.lottie.apply {
         playAnimation()
         isVisible = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.lottie.isVisible = false
     }
 
     override fun onDestroyView() {

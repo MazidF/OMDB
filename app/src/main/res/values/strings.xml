@@ -6,7 +6,7 @@
     <string name="connection_message">You are not connected to the Internet.</string>
     <string name="continue_offline">Continue Offline</string>
     <string name="cellular">Cellular</string>
-    <string name="wifi">WIFI</string>
+    <string name="wifi">Wifi</string>
     <string name="retry">Retry</string>
     <string name="failed_to_load_more_item_from_server">Failed to load more item from server!!</string>
     <string name="connection_state">Connection State:</string>

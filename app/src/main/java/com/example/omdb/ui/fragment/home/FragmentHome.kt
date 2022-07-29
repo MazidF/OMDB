@@ -1,6 +1,5 @@
 package com.example.omdb.ui.fragment.home
 
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -15,6 +14,7 @@ import com.example.omdb.ui.fragment.home.adapter.ItemPagingAdapter
 import com.example.omdb.ui.fragment.home.adapter.SmallMovieItemFactory
 import com.example.omdb.ui.fragment.home.adapter.diffcallback.MovieDiffCallback
 import com.example.omdb.ui.fragment.home.adapter.loading.LoadingStateAdapter
+import com.example.omdb.utils.helper.ConnectionHelper
 import com.example.omdb.utils.isLandscape
 import com.example.omdb.utils.launch
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,7 +78,6 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
 
         launch {
             movieAdapter.loadStateFlow.collectLatest { state ->
-                Log.d("loading state", state.source.toString())
                 val refresh = state.refresh
                 val append = state.append
                 setupLoadState(refresh, append)
@@ -88,6 +87,9 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
         viewModel.connectionState.observe(viewLifecycleOwner) {
             if (it.isConnected()) {
                 movieAdapter.refresh()
+            }
+            if (it != ConnectionHelper.ConnectionState.NONE) {
+                viewModel.resetConnectionState()
             }
         }
     }
@@ -107,7 +109,7 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
                     errorRoot.isVisible = true
                 }
             }
-            else -> {
+            is LoadState.Loading -> {
                 if (movieAdapter.itemCount == 0) {
                     startAnimation()
                 } else {
