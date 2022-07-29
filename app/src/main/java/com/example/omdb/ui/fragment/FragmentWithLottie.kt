@@ -29,9 +29,11 @@ abstract class FragmentWithLottie(
 
     protected abstract fun onViewCreated(view: View)
 
-    protected fun startAnimation() {
+    protected fun startAnimation(resourceId: Int? = null) {
         binding.lottie.apply {
-            setAnimation(getAttributeResourceId(context, R.attr.loading_animation))
+            pauseAnimation()
+            cancelAnimation()
+            setAnimation(resourceId ?: getAttributeResourceId(context, R.attr.loading_animation))
             play()
         }
     }
@@ -55,10 +57,7 @@ abstract class FragmentWithLottie(
             }
             isVisible = true
         }
-        lottie.apply {
-            setAnimation(getAttributeResourceId(context, R.attr.failed_animation))
-            play()
-        }
+        startAnimation(getAttributeResourceId(root.context, R.attr.failed_animation))
     }
 
     private fun play() = binding.lottie.apply {

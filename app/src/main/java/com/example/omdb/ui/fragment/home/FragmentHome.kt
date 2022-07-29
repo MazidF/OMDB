@@ -1,19 +1,15 @@
 package com.example.omdb.ui.fragment.home
 
-import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.omdb.R
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.databinding.FragmentHomeBinding
-import com.example.omdb.databinding.LoadStateItemBinding
 import com.example.omdb.ui.fragment.FragmentWithLottie
 import com.example.omdb.ui.fragment.home.adapter.ItemPagingAdapter
 import com.example.omdb.ui.fragment.home.adapter.SmallMovieItemFactory
@@ -22,7 +18,6 @@ import com.example.omdb.ui.fragment.home.adapter.loading.LoadingStateAdapter
 import com.example.omdb.utils.isLandscape
 import com.example.omdb.utils.launch
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -83,22 +78,43 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
 
         launch {
             movieAdapter.loadStateFlow.collectLatest { state ->
+                Log.d("loading state", state.source.toString())
                 val refresh = state.refresh
                 val append = state.append
                 setupLoadState(refresh, append)
             }
         }
+
+        viewModel.connectionState.observe(viewLifecycleOwner) {
+            if (it.isConnected()) {
+                movieAdapter.refresh()
+            }
+        }
     }
 
     private fun setupLoadState(refresh: LoadState, append: LoadState) = binding.loading.apply {
-        if (refresh !is LoadState.Loading) {
-            stopAnimation()
-        } else {
-            startAnimation()
-        }
-        val isError = (append is LoadState.Error) or (refresh is LoadState.Error)
-        errorRoot.isVisible = isError
+        errorRoot.isVisible = append is LoadState.Error
         progressbar.isVisible = append is LoadState.Loading
+
+        when (refresh) {
+            is LoadState.NotLoading -> {
+                stopAnimation()
+            }
+            is LoadState.Error -> {
+                if (movieAdapter.itemCount == 0) {
+                    showError(movieAdapter::retry)
+                } else {
+                    errorRoot.isVisible = true
+                }
+            }
+            else -> {
+                if (movieAdapter.itemCount == 0) {
+                    startAnimation()
+                } else {
+                    progressbar.isVisible = true
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

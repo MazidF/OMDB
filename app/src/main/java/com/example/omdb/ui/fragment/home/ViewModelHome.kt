@@ -20,6 +20,7 @@ class ViewModelHome @Inject constructor(
     private val useCase: MovieUseCase,
 ) : ViewModel() {
 
+    val connectionState = useCase.connectionState
     val pagingFlow = useCase.search("Batman", STARTING_PAGE_INDEX).cachedIn(viewModelScope)
 
 }

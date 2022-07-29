@@ -42,10 +42,11 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
             viewModel.movieStateFlow.collectLatest {
                 when (it) {
                     is Result.Fail -> {
-                        val error = it
                         onFail()
                     }
-                    is Result.Loading -> {}
+                    is Result.Loading -> {
+                        startAnimation()
+                    }
                     is Result.Success -> {
                         onSuccess(it.data())
                     }
