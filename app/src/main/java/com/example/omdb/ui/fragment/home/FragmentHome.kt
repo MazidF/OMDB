@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,6 +14,7 @@ import com.example.omdb.R
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.databinding.FragmentHomeBinding
 import com.example.omdb.databinding.LoadStateItemBinding
+import com.example.omdb.ui.fragment.FragmentWithLottie
 import com.example.omdb.ui.fragment.home.adapter.ItemPagingAdapter
 import com.example.omdb.ui.fragment.home.adapter.SmallMovieItemFactory
 import com.example.omdb.ui.fragment.home.adapter.diffcallback.MovieDiffCallback
@@ -24,15 +26,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class FragmentHome : Fragment(R.layout.fragment_home) {
+class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding get() = _binding!!
 
+    private val navController by lazy {
+        findNavController()
+    }
     private val viewModel: ViewModelHome by activityViewModels()
     private lateinit var movieAdapter: ItemPagingAdapter<Movie>
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View) {
         _binding = FragmentHomeBinding.bind(view)
 
         initView()
@@ -65,7 +69,9 @@ class FragmentHome : Fragment(R.layout.fragment_home) {
     }
 
     private fun onItemClick(item: Movie) {
-
+        navController.navigate(
+            FragmentHomeDirections.actionFragmentHomeToFragmentMovieDetail(item)
+        )
     }
 
     private fun observe() = with(binding) {
@@ -77,16 +83,22 @@ class FragmentHome : Fragment(R.layout.fragment_home) {
 
         launch {
             movieAdapter.loadStateFlow.collectLatest { state ->
-                val loadState = state.append
-                setupLoadState(loadState)
+                val refresh = state.refresh
+                val append = state.append
+                setupLoadState(refresh, append)
             }
         }
     }
 
-    private fun setupLoadState(loadState: LoadState) = binding.loading.apply {
-        val isError = loadState is LoadState.Error
+    private fun setupLoadState(refresh: LoadState, append: LoadState) = binding.loading.apply {
+        if (refresh !is LoadState.Loading) {
+            stopAnimation()
+        } else {
+            startAnimation()
+        }
+        val isError = (append is LoadState.Error) or (refresh is LoadState.Error)
         errorRoot.isVisible = isError
-        progressbar.isVisible = loadState is LoadState.Loading
+        progressbar.isVisible = append is LoadState.Loading
     }
 
     override fun onDestroyView() {

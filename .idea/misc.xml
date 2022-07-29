@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_back.xml" value="0.24" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_clock.xml" value="0.1735" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_language.xml" value="0.1735" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_location.xml" value="0.1735" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_no_wifi.xml" value="0.176" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_play.xml" value="0.2095" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_share.xml" value="0.2395" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-anydpi/ic_wifi.xml" value="0.176" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable-mdpi/loading_img.xml" value="0.165" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/circle.xml" value="0.287" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/dark_theme.xml" value="0.195" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/ic_movie_dark2.xml" value="0.222" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/image_with_border.xml" value="0.171" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/loading_img.xml" value="0.2535" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_background.xml" value="0.1" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/drawable/splash_drawable.xml" value="0.1" />
@@ -14,10 +25,11 @@
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/connection_dialog.xml" value="0.33" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_movie_detail.xml" value="0.12511584800741427" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_movie_detail.xml" value="0.1" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_refreshable.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_setting.xml" value="0.1388888888888889" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/fragment_with_lottie.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/item_view.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/load_state_item.xml" value="0.22" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/layout/small_movie_item.xml" value="0.75" />
         <entry key="..\:/Users/vcc/AndroidStudioProjects/OMDB/app/src/main/res/menu/bottom_menu.xml" value="0.1" />

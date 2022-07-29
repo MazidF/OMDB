@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.omdb.R
 import com.example.omdb.databinding.FragmentWithLottieBinding
+import com.example.omdb.utils.getAttributeResourceId
 
 abstract class FragmentWithLottie(
     private val layoutResourceId: Int,
@@ -28,12 +29,41 @@ abstract class FragmentWithLottie(
 
     protected abstract fun onViewCreated(view: View)
 
-    protected fun stopAnimation() {
+    protected fun startAnimation() {
         binding.lottie.apply {
-            pauseAnimation()
-            cancelAnimation()
-            isVisible = false
+            setAnimation(getAttributeResourceId(context, R.attr.loading_animation))
+            play()
         }
+    }
+
+    protected fun stopAnimation() = with(binding) {
+        retry.isVisible = false
+        lottie.apply {
+            pauseAnimation()
+            animate().alpha(0f).withEndAction {
+                isVisible = false
+                alpha = 1f
+            }.duration = 300
+        }
+    }
+
+    protected fun showError(onRetry: () -> Unit) = with(binding) {
+        retry.apply {
+            setOnClickListener {
+                startAnimation()
+                onRetry()
+            }
+            isVisible = true
+        }
+        lottie.apply {
+            setAnimation(getAttributeResourceId(context, R.attr.failed_animation))
+            play()
+        }
+    }
+
+    private fun play() = binding.lottie.apply {
+        playAnimation()
+        isVisible = true
     }
 
     override fun onDestroyView() {

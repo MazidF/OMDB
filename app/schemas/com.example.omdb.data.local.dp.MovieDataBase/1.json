@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4313e739d093af61b35532a8aef6a680",
+    "identityHash": "684e58a584f963e41091d7375fb43c4d",
     "entities": [
       {
         "tableName": "movie_table",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "detail_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`detail_movie_id` TEXT NOT NULL, `detail_description` TEXT NOT NULL, `detail_duration` TEXT NOT NULL, `detail_imdb_rate` REAL NOT NULL, `detail_actors` TEXT NOT NULL, `detail_country` TEXT NOT NULL, `detail_language` TEXT NOT NULL, `detail_release_time` TEXT NOT NULL, PRIMARY KEY(`detail_movie_id`), FOREIGN KEY(`detail_movie_id`) REFERENCES `movie_table`(`movie_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`detail_movie_id` TEXT NOT NULL, `detail_description` TEXT NOT NULL, `detail_duration` TEXT NOT NULL, `detail_imdb_rate` REAL NOT NULL, `detail_writers` TEXT NOT NULL, `detail_actors` TEXT NOT NULL, `detail_country` TEXT NOT NULL, `detail_language` TEXT NOT NULL, `detail_release_time` TEXT NOT NULL, PRIMARY KEY(`detail_movie_id`), FOREIGN KEY(`detail_movie_id`) REFERENCES `movie_table`(`movie_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "movieId",
@@ -62,6 +62,12 @@
             "fieldPath": "imdbRate",
             "columnName": "detail_imdb_rate",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "writers",
+            "columnName": "detail_writers",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -161,7 +167,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4313e739d093af61b35532a8aef6a680')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '684e58a584f963e41091d7375fb43c4d')"
     ]
   }
 }

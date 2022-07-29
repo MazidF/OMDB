@@ -3,6 +3,8 @@ package com.example.omdb.data.local.dp
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.omdb.data.local.dp.dao.GenreDao
 import com.example.omdb.data.local.dp.dao.MovieDao
 import com.example.omdb.data.local.dp.dao.MovieDetailDao
@@ -15,7 +17,7 @@ import com.example.omdb.data.model.entity.MovieGenreCrossRef
     entities = [
         Movie::class, MovieDetail::class, Genre::class, MovieGenreCrossRef::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(
@@ -27,4 +29,19 @@ abstract class MovieDataBase : RoomDatabase() {
     abstract fun genreDao(): GenreDao
     abstract fun movieDetailDao(): MovieDetailDao
 
+    companion object {
+        fun getMigrations(): Array<Migration> {
+            return arrayOf(
+                MIGRATION_1_2,
+            )
+        }
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "ALTER TABLE detail_table ADD COLUMN detail_writers TEXT NOT NULL DEFAULT ('')"
+                )
+            }
+        }
+    }
 }

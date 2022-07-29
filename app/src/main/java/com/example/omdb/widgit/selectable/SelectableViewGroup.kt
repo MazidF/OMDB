@@ -14,6 +14,7 @@ import com.example.omdb.databinding.SettingSelectableItemBinding
 import com.example.omdb.utils.set
 import com.example.omdb.utils.setupSelection
 
+// Custom View
 class SelectableViewGroup(
     context: Context,
     attrs: AttributeSet,

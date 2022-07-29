@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/fragmentSetting">
+    app:startDestination="@id/fragmentHome">
 
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.example.omdb.ui.fragment.home.FragmentHome"
         android:label="FragmentHome"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentMovieDetail"
+            app:destination="@id/fragmentMovieDetail" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentSetting"

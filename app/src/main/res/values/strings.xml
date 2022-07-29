@@ -9,4 +9,9 @@
     <string name="wifi">WIFI</string>
     <string name="retry">Retry</string>
     <string name="failed_to_load_more_item_from_server">Failed to load more item from server!!</string>
+    <string name="connection_state">Connection State:</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="watch">Watch</string>
+    <string name="description">Description</string>
 </resources>

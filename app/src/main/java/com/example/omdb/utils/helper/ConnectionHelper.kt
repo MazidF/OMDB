@@ -93,5 +93,9 @@ class ConnectionHelper @Inject constructor(
         CONNECTED,
         DISCONNECTED,
         NONE;
+
+        fun isConnected(): Boolean {
+            return this == CONNECTED
+        }
     }
 }

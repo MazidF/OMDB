@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.omdb.data.local.datastore.setting.SettingDataStore
 import com.example.omdb.data.local.datastore.setting.Theme
 import com.example.omdb.domain.MovieUseCase
+import com.example.omdb.utils.helper.ConnectionHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -18,10 +19,16 @@ class ViewModelSetting @Inject constructor(
     val connectionState = useCase.connectionState
     val settingPreferences get() = settingDataStore.preferences
 
+    var lastConnectionState: ConnectionHelper.ConnectionState? = null
+
     fun updateTheme(theme: Theme) {
         viewModelScope.launch {
             settingDataStore.updateTheme(theme)
         }
+    }
+
+    fun isNetworkAvailable(): Boolean {
+        return useCase.isNetworkAvailable()
     }
 
     fun wifiSetting() {

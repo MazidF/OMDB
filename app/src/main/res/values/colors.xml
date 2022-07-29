@@ -16,4 +16,6 @@
     <color name="simple_text_color">@color/black</color>
     <color name="color_of_theme">@color/blue</color>
     <color name="light_color_of_theme">@color/light_blue</color>
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
 </resources>

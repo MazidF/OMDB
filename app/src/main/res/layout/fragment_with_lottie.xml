@@ -5,11 +5,24 @@
     android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
+        android:background="?attr/colorOnPrimary"
+        android:elevation="2dp"
         android:id="@+id/lottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/no_internet_dark" />
+        app:lottie_rawRes="?attr/loading_animation" />
+
+    <Button
+        android:elevation="2dp"
+        android:visibility="gone"
+        android:id="@+id/retry"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retry"
+        android:textAllCaps="false"/>
 
 </FrameLayout>

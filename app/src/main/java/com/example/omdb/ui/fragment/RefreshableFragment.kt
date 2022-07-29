@@ -1,19 +1,20 @@
 package com.example.omdb.ui.fragment
 
-import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.example.omdb.R
 import com.example.omdb.databinding.FragmentRefreshableBinding
 
 abstract class RefreshableFragment(
     private val layoutResourceId: Int,
-) : Fragment(R.layout.fragment_refreshable) {
+) : FragmentWithLottie(R.layout.fragment_refreshable) {
     private var _binding: FragmentRefreshableBinding? = null
     private val binding: FragmentRefreshableBinding get() = _binding!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    protected abstract fun refresh()
+
+    protected abstract fun onChildViewCreated(view: View)
+
+    override fun onViewCreated(view: View) {
         _binding = FragmentRefreshableBinding.bind(view)
 
         initView()
@@ -23,10 +24,8 @@ abstract class RefreshableFragment(
     private fun initView() = with(binding) {
         val child = View.inflate(requireContext(), layoutResourceId, null)
         root.addView(child)
-        onViewCreated(child)
+        onChildViewCreated(child)
     }
-
-    protected abstract fun onViewCreated(view: View)
 
     private fun observe() = with(binding) {
         root.setOnRefreshListener {
@@ -34,7 +33,13 @@ abstract class RefreshableFragment(
         }
     }
 
-    protected abstract fun refresh()
+    protected fun disableRefresher() {
+        binding.root.isEnabled = false
+    }
+
+    protected fun enableRefresher() {
+        binding.root.isEnabled = true
+    }
 
     protected fun stopRefreshing() {
         binding.root.isRefreshing = false
@@ -45,5 +50,3 @@ abstract class RefreshableFragment(
         _binding = null
     }
 }
-
-

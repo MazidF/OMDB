@@ -31,6 +31,8 @@ class DataBaseModule {
             context,
             MovieDataBase::class.java,
             MovieDataBase::class.java.simpleName,
+        ).addMigrations(
+            *MovieDataBase.getMigrations()
         ).build()
     }
 

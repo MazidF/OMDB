@@ -6,5 +6,14 @@
         <attr name="itemsTitle" format="reference" />
         <attr name="itemsIcon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ItemView">
+        <attr name="itemTint" format="color" />
+        <attr name="itemText" format="string" />
+        <attr name="itemIcon" format="reference" />
+    </declare-styleable>
+
     <attr name="errorIconDrawable" format="reference" />
+    <attr name="loading_animation" format="reference" />
+    <attr name="failed_animation" format="reference" />
 </resources>

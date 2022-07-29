@@ -43,7 +43,7 @@ class MovieUseCase(
         connectionHelper.goToDataRoamingSettings()
     }
 
-    private fun isNetworkAvailable() = connectionHelper.isNetworkAvailable()
+    fun isNetworkAvailable() = connectionHelper.isNetworkAvailable()
 
     fun getDetail(movieId: String): Flow<Result<MovieDetailWithGenres>> {
         return repository.getDetail(isNetworkAvailable(), movieId)

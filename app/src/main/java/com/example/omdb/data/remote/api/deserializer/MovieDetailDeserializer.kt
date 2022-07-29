@@ -17,6 +17,7 @@ object MovieDetailDeserializer : JsonDeserializer<MovieDetail> {
             description = this["Plot"].asString,
             duration = this["Runtime"].asString,
             imdbRate = this["imdbRating"].asFloat,
+            writers = this["Writer"].asString,
             actors = this["Actors"].asString,
             country = this["Country"].asString,
             language = this["Language"].asString,

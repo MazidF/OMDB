@@ -22,6 +22,7 @@ class LocalDataSaver(
     override suspend fun saveDetail(detail: MovieDetailWithGenres) {
         movieDetailDao.insert(detail.detail)
         genreDao.insert(*detail.genres.toTypedArray())
+
     }
 
     override suspend fun saveMovies(movies: List<Movie>) {

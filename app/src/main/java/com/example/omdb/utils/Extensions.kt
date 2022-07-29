@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -121,7 +122,6 @@ fun getAttributeResourceId(context: Context, attribute: Int): Int {
 
 fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
 
-
     val request = Glide.with(this)
         .load(input)
         .centerCrop()
@@ -160,4 +160,8 @@ fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
 
 fun Context.isLandscape(): Boolean {
     return resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+}
+
+fun Fragment.onBack() {
+    (requireActivity() as? AppCompatActivity)?.onBackPressed()
 }
