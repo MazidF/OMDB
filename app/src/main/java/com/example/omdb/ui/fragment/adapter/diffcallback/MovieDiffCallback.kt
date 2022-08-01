@@ -1,4 +1,4 @@
-package com.example.omdb.ui.fragment.home.adapter.diffcallback
+package com.example.omdb.ui.fragment.adapter.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.omdb.data.model.entity.Movie

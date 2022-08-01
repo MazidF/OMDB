@@ -8,22 +8,24 @@
         <Constraint
             android:id="@id/appbar"
             android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent">
 
             <CustomAttribute
-                motion:attributeName="BackgroundColor"
-                app:customColorDrawableValue="@android:color/transparent" />
+                app:customColorValue="@android:color/transparent"
+                motion:attributeName="BackgroundColor" />
 
         </Constraint>
 
-        <Constraint android:id="@id/movie_name_top">
-
-            <PropertySet android:visibility="gone" />
-
-        </Constraint>
+        <Constraint
+            android:id="@id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/top"
@@ -39,6 +41,8 @@
             android:id="@id/card"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +50,26 @@
 
             <CustomAttribute
                 motion:attributeName="Radius"
-                motion:customFloatValue="10" />
+                motion:customFloatValue="50" />
+
+        </Constraint>
+
+        <Constraint
+            android:id="@id/movie_name_top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <PropertySet android:alpha="0" />
+
+            <CustomAttribute
+                app:attributeName="setElevation"
+                app:customIntegerValue="5" />
 
         </Constraint>
 
@@ -57,22 +80,24 @@
         <Constraint
             android:id="@id/appbar"
             android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent">
 
             <CustomAttribute
-                motion:attributeName="BackgroundColor"
-                app:customColorDrawableValue="?attr/colorOnPrimary" />
+                app:customColorValue="?attr/colorOnPrimary"
+                motion:attributeName="BackgroundColor" />
 
         </Constraint>
 
-        <Constraint android:id="@id/movie_name_top">
-
-            <PropertySet android:visibility="visible" />
-
-        </Constraint>
+        <Constraint
+            android:id="@id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/top"
@@ -100,6 +125,25 @@
 
         </Constraint>
 
+        <Constraint
+            android:id="@id/movie_name_top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <PropertySet android:alpha="1" />
+
+            <CustomAttribute
+                app:attributeName="setElevation"
+                app:customIntegerValue="5" />
+
+        </Constraint>
+
     </ConstraintSet>
 
     <Transition
@@ -112,13 +156,4 @@
 
     </Transition>
 
-    <Transition
-        app:constraintSetEnd="@+id/start"
-        app:constraintSetStart="@id/end">
-
-        <OnSwipe
-            app:dragDirection="dragDown"
-            app:touchAnchorId="@id/card" />
-
-    </Transition>
 </MotionScene>

@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.omdb.data.local.dp.dao.GenreDao
 import com.example.omdb.data.local.dp.dao.MovieDao
 import com.example.omdb.data.local.dp.dao.MovieDetailDao
+import com.example.omdb.data.local.dp.dao.MovieGenreCrossRefDao
 import com.example.omdb.data.model.entity.Genre
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.entity.MovieDetail
@@ -28,6 +29,7 @@ abstract class MovieDataBase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
     abstract fun genreDao(): GenreDao
     abstract fun movieDetailDao(): MovieDetailDao
+    abstract fun movieGenreCrossRefDao(): MovieGenreCrossRefDao
 
     companion object {
         fun getMigrations(): Array<Migration> {

@@ -1,4 +1,4 @@
-package com.example.omdb.ui.fragment.home.adapter.loading
+package com.example.omdb.ui.fragment.adapter.loading
 
 import android.util.Log
 import android.view.View

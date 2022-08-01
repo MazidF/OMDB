@@ -1,6 +1,5 @@
-package com.example.omdb.ui.fragment.home.adapter.loading
+package com.example.omdb.ui.fragment.adapter.loading
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter

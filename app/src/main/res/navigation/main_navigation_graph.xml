@@ -30,6 +30,9 @@
         <argument
             android:name="movie"
             app:argType="com.example.omdb.data.model.entity.Movie" />
+        <action
+            android:id="@+id/action_fragmentMovieDetail_self"
+            app:destination="@id/fragmentMovieDetail" />
 
     </fragment>
 

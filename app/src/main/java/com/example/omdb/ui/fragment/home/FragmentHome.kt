@@ -10,10 +10,10 @@ import com.example.omdb.R
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.databinding.FragmentHomeBinding
 import com.example.omdb.ui.fragment.FragmentWithLottie
-import com.example.omdb.ui.fragment.home.adapter.ItemPagingAdapter
-import com.example.omdb.ui.fragment.home.adapter.SmallMovieItemFactory
-import com.example.omdb.ui.fragment.home.adapter.diffcallback.MovieDiffCallback
-import com.example.omdb.ui.fragment.home.adapter.loading.LoadingStateAdapter
+import com.example.omdb.ui.fragment.adapter.ItemPagingAdapter
+import com.example.omdb.ui.fragment.adapter.diffcallback.MovieDiffCallback
+import com.example.omdb.ui.fragment.adapter.factory.SmallMovieItemFactory
+import com.example.omdb.ui.fragment.adapter.loading.LoadingStateAdapter
 import com.example.omdb.utils.helper.ConnectionHelper
 import com.example.omdb.utils.isLandscape
 import com.example.omdb.utils.launch

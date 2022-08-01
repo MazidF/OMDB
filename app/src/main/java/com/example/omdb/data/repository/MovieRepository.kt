@@ -1,17 +1,16 @@
 package com.example.omdb.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.omdb.data.IDataSaver
 import com.example.omdb.data.IDataSource
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.relation.MovieDetailWithGenres
-import com.example.omdb.data.paging.ItemPagingSource
 import com.example.omdb.data.result.Result
 import com.example.omdb.utils.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 
 class MovieRepository(
     private val local: IDataSource,
@@ -57,6 +56,12 @@ class MovieRepository(
             localLoad = { local.getMovieById(movieId) },
             saver = { saver.saveMovieById(it) },
         )
+    }
+
+    fun getSimilar(movieId: String): Flow<Result<List<Movie>>> {
+        return safeApiCall {
+            local.getSimilar(movieId)
+        }.flowOn(dispatcher)
     }
 
     private suspend fun <T> loadData(

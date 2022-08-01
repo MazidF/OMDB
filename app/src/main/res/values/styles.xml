@@ -42,4 +42,9 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="DetailTitles">
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

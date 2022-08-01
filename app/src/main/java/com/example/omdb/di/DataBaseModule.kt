@@ -10,6 +10,7 @@ import com.example.omdb.data.local.dp.MovieDataBase
 import com.example.omdb.data.local.dp.dao.GenreDao
 import com.example.omdb.data.local.dp.dao.MovieDao
 import com.example.omdb.data.local.dp.dao.MovieDetailDao
+import com.example.omdb.data.local.dp.dao.MovieGenreCrossRefDao
 import com.example.omdb.di.qualifier.Local
 import dagger.Module
 import dagger.Provides
@@ -62,6 +63,14 @@ class DataBaseModule {
 
     @Provides
     @Singleton
+    fun provideMovieGenreCrossRefDao(
+        database: MovieDataBase,
+    ) : MovieGenreCrossRefDao {
+        return database.movieGenreCrossRefDao()
+    }
+
+    @Provides
+    @Singleton
     @Local
     fun provideLocalDataSource(
         genreDao: GenreDao,
@@ -81,11 +90,13 @@ class DataBaseModule {
         genreDao: GenreDao,
         movieDao: MovieDao,
         movieDetailDao: MovieDetailDao,
+        movieGenreCrossRefDao: MovieGenreCrossRefDao,
     ) : IDataSaver {
         return LocalDataSaver(
             genreDao = genreDao,
             movieDao = movieDao,
             movieDetailDao = movieDetailDao,
+            movieGenreCrossRefDao = movieGenreCrossRefDao,
         )
     }
 }

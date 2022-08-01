@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "c9c23df95a333ff09417eca4335683da",
+    "identityHash": "a431cdf0dcaf0977a734a51109c4ea7e",
     "entities": [
       {
         "tableName": "movie_table",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "detail_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`detail_movie_id` TEXT NOT NULL, `detail_description` TEXT NOT NULL, `detail_duration` TEXT NOT NULL, `detail_imdb_rate` REAL NOT NULL, `detail_writers` TEXT NOT NULL, `detail_actors` TEXT NOT NULL, `detail_country` TEXT NOT NULL, `detail_language` TEXT NOT NULL, `detail_release_time` TEXT NOT NULL, PRIMARY KEY(`detail_movie_id`), FOREIGN KEY(`detail_movie_id`) REFERENCES `movie_table`(`movie_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`detail_movie_id` TEXT NOT NULL, `detail_description` TEXT NOT NULL, `detail_duration` TEXT NOT NULL, `detail_imdb_rate` REAL NOT NULL, `detail_writers` TEXT NOT NULL, `detail_actors` TEXT NOT NULL, `detail_country` TEXT NOT NULL, `detail_language` TEXT NOT NULL, `detail_release_time` TEXT NOT NULL, PRIMARY KEY(`detail_movie_id`), FOREIGN KEY(`detail_movie_id`) REFERENCES `movie_table`(`movie_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "movieId",
@@ -105,7 +105,7 @@
         "foreignKeys": [
           {
             "table": "movie_table",
-            "onDelete": "CASCADE",
+            "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
               "detail_movie_id"
@@ -167,7 +167,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9c23df95a333ff09417eca4335683da')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a431cdf0dcaf0977a734a51109c4ea7e')"
     ]
   }
 }

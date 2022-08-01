@@ -31,4 +31,8 @@ class LocalDataSource(
         )
         return Result.success(list)
     }
+
+    override suspend fun getSimilar(movieId: String): Result<List<Movie>> {
+        return Result.success(movieDao.getSimilar(movieId, 10))
+    }
 }

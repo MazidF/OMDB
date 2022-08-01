@@ -1,7 +1,6 @@
 package com.example.omdb.data.model.entity
 
 import androidx.room.ColumnInfo
-import androidx.room.ColumnInfo.TEXT
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -13,7 +12,6 @@ import androidx.room.PrimaryKey
             entity = Movie::class,
             parentColumns = ["movie_id"],
             childColumns = ["detail_movie_id"],
-            onDelete = ForeignKey.CASCADE,
         ),
     ],
 )

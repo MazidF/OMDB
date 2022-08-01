@@ -4,13 +4,19 @@ import android.graphics.Color
 import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.omdb.R
+import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.relation.MovieDetailWithGenres
 import com.example.omdb.data.result.Result
 import com.example.omdb.databinding.FragmentMovieDetailBinding
 import com.example.omdb.ui.fragment.RefreshableFragment
+import com.example.omdb.ui.fragment.adapter.ItemListAdapter
+import com.example.omdb.ui.fragment.adapter.diffcallback.MovieDiffCallback
+import com.example.omdb.ui.fragment.adapter.factory.SmallMovieItemFactory
 import com.example.omdb.utils.launch
 import com.example.omdb.utils.loadImage
 import com.example.omdb.utils.onBack
@@ -18,17 +24,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail), MotionLayout.TransitionListener {
+class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
+    MotionLayout.TransitionListener {
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding: FragmentMovieDetailBinding get() = _binding!!
 
     private val viewModel: ViewModelMovieDetail by viewModels()
     private val args: FragmentMovieDetailArgs by navArgs()
     private val movie get() = args.movie
+    private val navController by lazy {
+        findNavController()
+    }
 
     override fun onChildViewCreated(view: View) {
         _binding = FragmentMovieDetailBinding.bind(view)
 
+        load()
         initView()
         observe()
     }
@@ -53,7 +64,40 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
                 }
             }
         }
+
+        launch {
+            viewModel.similarStateFlow.collectLatest {
+                when (it) {
+                    is Result.Fail -> {
+                        similarTitle.isVisible = false
+                        similarList.isVisible = false
+                    }
+                    is Result.Success -> {
+                        setupSimilarList(it.data())
+                        similarTitle.isVisible = true
+                        similarList.isVisible = true
+                    }
+                }
+            }
+        }
+
         root.addTransitionListener(this@FragmentMovieDetail)
+    }
+
+    private fun setupSimilarList(list: List<Movie>) = with(binding) {
+        val itemAdapter = ItemListAdapter(
+            diffCallback = MovieDiffCallback(),
+            bindableFactory = SmallMovieItemFactory(),
+            onItemClick = this@FragmentMovieDetail::onItemClick,
+        )
+        similarList.adapter = itemAdapter
+        itemAdapter.submitList(list)
+    }
+
+    private fun onItemClick(movie: Movie) {
+        navController.navigate(
+            FragmentMovieDetailDirections.actionFragmentMovieDetailSelf(movie)
+        )
     }
 
     private fun onFail() {
@@ -61,7 +105,11 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
     }
 
     override fun refresh() {
-        viewModel.getDetail(movie.id)
+        load(true)
+    }
+
+    private fun load(isRefreshing: Boolean = false) {
+        viewModel.loadData(movie.id, isRefreshing)
     }
 
     private fun onSuccess(data: MovieDetailWithGenres) = with(binding) {
@@ -108,7 +156,8 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
         startId: Int,
         endId: Int,
         progress: Float
-    ) {}
+    ) {
+    }
 
     override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
         binding.appbar.setBackgroundColor(Color.BLACK)
@@ -124,10 +173,12 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
         triggerId: Int,
         positive: Boolean,
         progress: Float
-    ) {}
+    ) {
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.similarList.adapter = null
         _binding = null
     }
 }

@@ -58,4 +58,8 @@ class MovieUseCase(
             repository.search(isNetworkAvailable(), title, page, pageSize)
         }.flow.flowOn(dispatcher)
     }
+
+    fun getSimilar(movieId: String): Flow<Result<List<Movie>>> {
+        return repository.getSimilar(movieId)
+    }
 }

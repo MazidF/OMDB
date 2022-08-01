@@ -1,4 +1,4 @@
-package com.example.omdb.ui.fragment.home.adapter
+package com.example.omdb.ui.fragment.adapter.factory
 
 import android.view.LayoutInflater
 import android.view.View

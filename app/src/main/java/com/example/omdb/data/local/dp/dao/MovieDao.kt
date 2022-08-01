@@ -23,7 +23,8 @@ interface MovieDao : IDao<Movie> {
     ): List<Movie>
 
     @Query(
-        "select movie_id, movie_title, movie_poster from movie_table natural join movie_genre_cross_ref_table " +
+        "select movie_id, movie_title, movie_poster from movie_table " +
+                "natural join movie_genre_cross_ref_table " +
                 "where genre_title = :genre limit :limit offset :offset"
     )
     suspend fun getMoviesByGenre(
@@ -37,4 +38,14 @@ interface MovieDao : IDao<Movie> {
         limit: Int,
         offset: Int,
     ): Flow<List<Movie>>
+
+    // temporary view genres
+    @Query(
+        "with genres as (select distinct mg.genre_title as title from movie_genre_cross_ref_table mg " +
+                "where mg.movie_id = :movieId) " +
+                "select distinct * from movie_table m " +
+                "natural join movie_genre_cross_ref_table mg " +
+                "where genre_title in genres limit :limit"
+    )
+    fun getSimilar(movieId: String, limit: Int): List<Movie>
 }
