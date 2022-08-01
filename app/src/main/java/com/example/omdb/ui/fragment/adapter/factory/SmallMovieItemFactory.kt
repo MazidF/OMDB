@@ -3,6 +3,7 @@ package com.example.omdb.ui.fragment.adapter.factory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.databinding.SmallMovieItemBinding
 import com.example.omdb.utils.bindable.Bindable
@@ -24,7 +25,10 @@ class SmallMovieItemFactory : BindableFactory<Movie>() {
             // for better performance we won't
             // but data_binding makes it very easy (at least for me)
             override fun bind(item: Movie) = with(binding) {
-                image.loadImage(item.poster)
+                image.apply {
+                    loadImage(item.poster)
+                    ViewCompat.setTransitionName(this, item.title)
+                }
                 title.text = item.title
             }
 

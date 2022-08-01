@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_fragmentMovieDetail_self"
             app:destination="@id/fragmentMovieDetail" />
+        <argument
+            android:name="shared_image_name"
+            app:argType="string" />
 
     </fragment>
 

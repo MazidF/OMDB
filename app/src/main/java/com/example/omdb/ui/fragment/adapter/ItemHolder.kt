@@ -1,17 +1,22 @@
 package com.example.omdb.ui.fragment.adapter
 
+import android.view.View
 import com.example.omdb.utils.bindable.Bindable
 import com.example.omdb.utils.bindable.BindableHolder
 
 class ItemHolder<T : Any>(
     bindable: Bindable<T>,
-    onItemClick: (T) -> Unit,
+    onItemClick: (View, T) -> Unit,
 ) : BindableHolder<T>(bindable) {
     private var t: T? = null
 
     init {
-        bindable.getView().setOnClickListener {
-            t?.let(onItemClick)
+        bindable.getView().apply {
+            setOnClickListener {
+                t?.let {
+                    onItemClick(this, it)
+                }
+            }
         }
     }
 

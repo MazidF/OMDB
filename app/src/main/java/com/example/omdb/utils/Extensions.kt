@@ -7,11 +7,13 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.view.children
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +28,7 @@ import com.example.omdb.R
 import com.example.omdb.data.result.Result
 import com.example.omdb.data.result.error.NetworkError
 import com.example.omdb.widgit.selectable.SelectableView
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import retrofit2.Response
@@ -164,4 +167,29 @@ fun Context.isLandscape(): Boolean {
 
 fun Fragment.onBack() {
     (requireActivity() as? AppCompatActivity)?.onBackPressed()
+}
+
+fun Fragment.changeColorOfStatusBar(color: Int) {
+    requireActivity().window.statusBarColor = color
+}
+
+fun Fragment.setupFullScreen() {
+    requireActivity().window.setFlags(
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+    )
+}
+
+fun Fragment.restoreFullScreen() {
+    requireActivity().window.clearFlags(
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+    )
+}
+
+fun AppBarLayout.setPadding(padding: Int) {
+    this.children.forEach {
+        it.updateLayoutParams {
+            height += padding
+        }
+    }
 }

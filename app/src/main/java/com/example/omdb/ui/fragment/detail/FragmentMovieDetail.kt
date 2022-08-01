@@ -1,11 +1,15 @@
 package com.example.omdb.ui.fragment.detail
 
 import android.graphics.Color
+import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.omdb.R
@@ -13,15 +17,15 @@ import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.data.model.relation.MovieDetailWithGenres
 import com.example.omdb.data.result.Result
 import com.example.omdb.databinding.FragmentMovieDetailBinding
+import com.example.omdb.databinding.SmallMovieItemBinding
 import com.example.omdb.ui.fragment.RefreshableFragment
 import com.example.omdb.ui.fragment.adapter.ItemListAdapter
 import com.example.omdb.ui.fragment.adapter.diffcallback.MovieDiffCallback
 import com.example.omdb.ui.fragment.adapter.factory.SmallMovieItemFactory
-import com.example.omdb.utils.launch
-import com.example.omdb.utils.loadImage
-import com.example.omdb.utils.onBack
+import com.example.omdb.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+
 
 @AndroidEntryPoint
 class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
@@ -34,6 +38,35 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
     private val movie get() = args.movie
     private val navController by lazy {
         findNavController()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setupTransitionAnimation()
+    }
+
+    private fun setupTransitionAnimation() {
+        val context = requireContext()
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.shared_image)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.shared_image)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupStatusBar()
+    }
+
+    private fun setupStatusBar() {
+        setupFullScreen()
+        changeColorOfStatusBar(android.R.color.transparent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        restoreFullScreen()
     }
 
     override fun onChildViewCreated(view: View) {
@@ -94,9 +127,14 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
         itemAdapter.submitList(list)
     }
 
-    private fun onItemClick(movie: Movie) {
+    private fun onItemClick(view: View, movie: Movie) {
+        val imageView = SmallMovieItemBinding.bind(view).image
+        val extras = FragmentNavigatorExtras(
+            imageView to movie.title
+        )
         navController.navigate(
-            FragmentMovieDetailDirections.actionFragmentMovieDetailSelf(movie)
+            FragmentMovieDetailDirections.actionFragmentMovieDetailSelf(movie, movie.title),
+            navigatorExtras = extras,
         )
     }
 
@@ -128,7 +166,12 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
         movieReleaseTime.text = detail.releaseTime
         movieDescription.text = detail.description
 
-        movieImage.loadImage(movie.poster)
+        movieImage.apply {
+            loadImage(movie.poster) {
+                startPostponedEnterTransition()
+            }
+            ViewCompat.setTransitionName(this, args.sharedImageName)
+        }
         movieBigImage.loadImage(movie.poster)
 
         setupListeners()

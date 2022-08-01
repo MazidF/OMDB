@@ -1,5 +1,6 @@
 package com.example.omdb.ui.fragment.adapter
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,7 @@ import com.example.omdb.utils.bindable.BindableFactory
 class ItemPagingAdapter<T : Any>(
     diffCallback: DiffUtil.ItemCallback<T>,
     private val bindableFactory: BindableFactory<T>,
-    private val onItemClick: (T) -> Unit,
+    private val onItemClick: (View, T) -> Unit,
 ) : PagingDataAdapter<T, ItemHolder<T>>(diffCallback) {
 
 

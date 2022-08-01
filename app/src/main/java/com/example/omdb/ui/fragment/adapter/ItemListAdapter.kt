@@ -1,5 +1,6 @@
 package com.example.omdb.ui.fragment.adapter
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +9,7 @@ import com.example.omdb.utils.bindable.BindableFactory
 class ItemListAdapter<T : Any>(
     diffCallback: DiffUtil.ItemCallback<T>,
     private val bindableFactory: BindableFactory<T>,
-    private val onItemClick: (T) -> Unit,
+    private val onItemClick: (View, T) -> Unit,
 ) : ListAdapter<T, ItemHolder<T>>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder<T> {

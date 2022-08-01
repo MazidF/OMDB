@@ -1,14 +1,18 @@
 package com.example.omdb.ui.fragment.home
 
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.omdb.R
 import com.example.omdb.data.model.entity.Movie
 import com.example.omdb.databinding.FragmentHomeBinding
+import com.example.omdb.databinding.SmallMovieItemBinding
 import com.example.omdb.ui.fragment.FragmentWithLottie
 import com.example.omdb.ui.fragment.adapter.ItemPagingAdapter
 import com.example.omdb.ui.fragment.adapter.diffcallback.MovieDiffCallback
@@ -34,8 +38,16 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
     override fun onViewCreated(view: View) {
         _binding = FragmentHomeBinding.bind(view)
 
+        setupAnimation(view)
         initView()
         observe()
+    }
+
+    private fun setupAnimation(view: View) {
+        postponeEnterTransition()
+        (view.parent as? ViewGroup)?.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
     }
 
     private fun initView() {
@@ -63,9 +75,14 @@ class FragmentHome : FragmentWithLottie(R.layout.fragment_home) {
         )
     }
 
-    private fun onItemClick(item: Movie) {
+    private fun onItemClick(view: View, item: Movie) {
+        val imageView = SmallMovieItemBinding.bind(view).image
+        val extras = FragmentNavigatorExtras(
+            imageView to item.title
+        )
         navController.navigate(
-            FragmentHomeDirections.actionFragmentHomeToFragmentMovieDetail(item)
+            FragmentHomeDirections.actionFragmentHomeToFragmentMovieDetail(item, item.title),
+            navigatorExtras = extras,
         )
     }
 

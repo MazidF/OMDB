@@ -1,8 +1,7 @@
 package com.example.omdb.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +45,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private fun initView() = with(binding) {
         NavigationUI.setupWithNavController(bottom, navController)
         updateConnectionState(viewModelSetting.isNetworkAvailable())
+        setupStatusBar()
+    }
+
+    private fun setupStatusBar() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
     }
 
     private fun observe() {
