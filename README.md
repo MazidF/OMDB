@@ -32,7 +32,7 @@ Android project that works with https://www.omdbapi.com API and show movies.
 You can install this application to test on your android smartphone. To download the signed application go to your chrome browser and copy-paste the download link:
 
 ```
-https://github.com/MazidF/OMDB/tree/master/release/OMDB.apk
+https://github.com/MazidF/OMDB/releases/download/v1.0.0/omdb.apk
 ```
 
 
