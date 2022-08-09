@@ -130,7 +130,8 @@ fun ImageView.loadImage(input: Any, cb: ((Boolean) -> Unit)? = null) {
         .centerCrop()
         .placeholder(R.drawable.loading_animation)
         .fitCenter()
-        .error(getAttributeResourceId(context, R.attr.errorIconDrawable))
+        .error(R.drawable.ic_empty_movie)
+//        .error(getAttributeResourceId(context, R.attr.errorIconDrawable))
         .diskCacheStrategy(DiskCacheStrategy.ALL) // caching for offline mode
 
     cb?.let {

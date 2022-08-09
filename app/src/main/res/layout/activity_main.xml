@@ -9,14 +9,16 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
+            android:paddingTop="20dp"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="@color/color_of_theme">
 
             <LinearLayout
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -40,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:padding="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
                     android:textSize="20sp"

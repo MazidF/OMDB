@@ -65,10 +65,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/movie_image"
                     style="@style/MovieImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_movie"
                     app:shapeAppearanceOverlay="@style/RoundedImage" />
 
             </com.google.android.material.card.MaterialCardView>

@@ -22,7 +22,9 @@ import com.example.omdb.ui.fragment.RefreshableFragment
 import com.example.omdb.ui.fragment.adapter.ItemListAdapter
 import com.example.omdb.ui.fragment.adapter.diffcallback.MovieDiffCallback
 import com.example.omdb.ui.fragment.adapter.factory.SmallMovieItemFactory
-import com.example.omdb.utils.*
+import com.example.omdb.utils.launch
+import com.example.omdb.utils.loadImage
+import com.example.omdb.utils.onBack
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -52,21 +54,6 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
             .inflateTransition(R.transition.shared_image)
         sharedElementReturnTransition = TransitionInflater.from(context)
             .inflateTransition(R.transition.shared_image)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setupStatusBar()
-    }
-
-    private fun setupStatusBar() {
-        setupFullScreen()
-        changeColorOfStatusBar(android.R.color.transparent)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        restoreFullScreen()
     }
 
     override fun onChildViewCreated(view: View) {
@@ -106,9 +93,12 @@ class FragmentMovieDetail : RefreshableFragment(R.layout.fragment_movie_detail),
                         similarList.isVisible = false
                     }
                     is Result.Success -> {
-                        setupSimilarList(it.data())
-                        similarTitle.isVisible = true
-                        similarList.isVisible = true
+                        val list = it.data()
+                        if (list.isNotEmpty()) {
+                            setupSimilarList(it.data())
+                            similarTitle.isVisible = true
+                            similarList.isVisible = true
+                        }
                     }
                 }
             }

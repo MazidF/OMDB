@@ -51,6 +51,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private fun setupStatusBar() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        fullScreenSetup()
+    }
+
+    private fun fullScreenSetup() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
     }
 
     private fun observe() {

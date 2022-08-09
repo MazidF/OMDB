@@ -28,10 +28,12 @@
     </style>
 
     <style name="MovieImageView">
-        <item name="android:minWidth">105dp</item>
+        <item name="android:layout_width">105dp</item>
         <item name="android:maxWidth">125dp</item>
-        <item name="android:minHeight">160dp</item>
+        <item name="android:layout_height">160dp</item>
         <item name="android:maxHeight">175dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">

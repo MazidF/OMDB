@@ -27,19 +27,21 @@ class ViewModelMovieDetail @Inject constructor(
     fun loadData(movieId: String, isRefreshing: Boolean) {
         if (isRefreshing or (_movieStateFlow.value is Result.Loading<*>)) {
             getDetail(movieId)
-            getSimilar(movieId)
         }
     }
 
-    private fun getDetail(movieId: String, isRefreshing: Boolean = false) {
+    private fun getDetail(movieId: String) {
         viewModelScope.launch {
             useCase.getDetail(movieId).collect {
                 _movieStateFlow.emit(it)
+                if (it is Result.Success) {
+                    getSimilar(movieId)
+                }
             }
         }
     }
 
-    private fun getSimilar(movieId: String, isRefreshing: Boolean = false) {
+    private fun getSimilar(movieId: String) {
         viewModelScope.launch {
             useCase.getSimilar(movieId).collect {
                 _similarStateFlow.emit(it)
