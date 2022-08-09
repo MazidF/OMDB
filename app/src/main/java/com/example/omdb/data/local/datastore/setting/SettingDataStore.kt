@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.omdb.di.qualifier.DispatcherIO
+import com.example.omdb.utils.saveTheme
+import com.example.omdb.utils.sharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
@@ -20,7 +22,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 @Singleton
 class SettingDataStore @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext private val context: Context,
     @DispatcherIO private val dispatcher: CoroutineDispatcher,
 ) {
     private val dataStore = context.dataStore
@@ -39,6 +41,7 @@ class SettingDataStore @Inject constructor(
         dataStore.edit {
             it[SettingPreferencesKey.KEY_THEME] = theme.name
         }
+        context.sharedPreferences().saveTheme(theme)
     }
 
     private object SettingPreferencesKey {

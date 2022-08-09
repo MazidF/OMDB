@@ -1,6 +1,8 @@
 package com.example.omdb.utils
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,6 +14,8 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
@@ -25,6 +29,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.omdb.R
+import com.example.omdb.data.local.datastore.setting.Theme
 import com.example.omdb.data.result.Result
 import com.example.omdb.data.result.error.NetworkError
 import com.example.omdb.widgit.selectable.SelectableView
@@ -192,5 +197,25 @@ fun AppBarLayout.setPadding(padding: Int) {
         it.updateLayoutParams {
             height += padding
         }
+    }
+}
+
+fun Context.sharedPreferences(): SharedPreferences {
+    return getSharedPreferences(packageName, MODE_PRIVATE)
+}
+
+fun SharedPreferences.saveTheme(theme: Theme) {
+    edit {
+        putInt(THEME_KEY, theme.mode)
+    }
+}
+
+fun SharedPreferences.getThemeMode(): Int {
+    return getInt(THEME_KEY, Theme.AUTO.mode)
+}
+
+fun setupTheme(mode: Int) {
+    if (AppCompatDelegate.getDefaultNightMode() != mode) {
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

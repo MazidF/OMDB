@@ -5,7 +5,6 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -16,9 +15,8 @@ import com.example.omdb.data.local.datastore.setting.Theme
 import com.example.omdb.databinding.ActivityMainBinding
 import com.example.omdb.databinding.ConnectionDialogBinding
 import com.example.omdb.ui.fragment.setting.ViewModelSetting
+import com.example.omdb.utils.*
 import com.example.omdb.utils.helper.ConnectionHelper.ConnectionState
-import com.example.omdb.utils.hideBackground
-import com.example.omdb.utils.launch
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -35,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private var connectionDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupTheme(sharedPreferences().getThemeMode())
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -143,9 +142,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     private fun setupTheme(theme: Theme) {
-        if (AppCompatDelegate.getDefaultNightMode() != theme.mode) {
-            AppCompatDelegate.setDefaultNightMode(theme.mode)
-        }
+        setupTheme(theme.mode)
     }
 
     override fun onDestinationChanged(

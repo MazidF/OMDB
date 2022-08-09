@@ -10,3 +10,5 @@ const val INITIAL_LOAD_SIZE = 40
 const val MAX_SIZE = 200
 
 const val STARTING_PAGE_INDEX = 1
+
+const val THEME_KEY = "themeKey"
